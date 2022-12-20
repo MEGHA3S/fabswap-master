@@ -13,6 +13,7 @@ String urlApi = 'api';
 String urlRootUser = 'UserController';
 String categorySelected='A';
 String myId="0";
+int totalAmount=0;
 
 GlobalKey<FeedPageState> feedPageStateKey = GlobalKey();
 GlobalKey<CartPageState> cartPageStateKey = GlobalKey();

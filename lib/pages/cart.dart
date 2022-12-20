@@ -98,11 +98,11 @@ class CartPageState extends State<CartPage> {
           ),
           child: Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
+               Padding(
+                padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  "₹1,000",
-                  style: TextStyle(
+                  "₹${totalAmount.toString()}",
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -117,7 +117,7 @@ class CartPageState extends State<CartPage> {
                   child: Center(
                     child: InkWell(
                       onTap: () {
-                        Navigator.popAndPushNamed(context, "/buy");
+                        Navigator.pushNamed(context, "/buy");
                       },
                       child: const Text(
                         "Buy Now",
@@ -228,6 +228,10 @@ class CartItemsWidget extends StatelessWidget {
                     child: InkWell(
                         onTap: () {
                           functionDeleteCart(indexCart);
+                          totalAmount = totalAmount - int.parse(dressPrice);
+                          if(totalAmount<0){
+                            totalAmount=0;
+                          }
                         },
                         child: const Text("Remove",
                             style:

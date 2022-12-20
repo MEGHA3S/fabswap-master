@@ -13,6 +13,7 @@ class MyRoutes {
   static String profilepage = '/profile';
   static String searchpage = '/search';
   static String addpage = '/add';
+  static String successPage = '/success';
 
 
 

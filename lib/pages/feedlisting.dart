@@ -107,6 +107,7 @@ class FeedListing extends StatelessWidget {
                           functionUpdateCart(
                               (int.parse(indexProfile) + 1).toString());
                           showSnackBar(context, "Item Added to Cart");
+                          totalAmount = totalAmount + int.parse(feedModel.response![int.parse(indexProfile)].dressPrice.toString());
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 7),

@@ -1,3 +1,4 @@
+import 'package:fabswap/controllers/image_controller.dart';
 import 'package:fabswap/controllers/local_data_controller.dart';
 import 'package:fabswap/pages/add.dart';
 import 'package:fabswap/pages/buy.dart';
@@ -10,6 +11,7 @@ import 'package:fabswap/pages/login.dart';
 import 'package:fabswap/pages/profile.dart';
 import 'package:fabswap/pages/search.dart';
 import 'package:fabswap/pages/signup.dart';
+import 'package:fabswap/pages/success_page.dart';
 import 'package:fabswap/routes.dart';
 import 'package:flutter/material.dart';
 import 'networking/web.dart';
@@ -17,8 +19,10 @@ import 'networking/web.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   functionFetchUser();
-  runApp(const MyApp());
+  runApp(const MyApp2());
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -42,6 +46,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.profilepage: (context) => const ProfilePage(),
         MyRoutes.searchpage: (context) => const Search(),
         MyRoutes.addpage: (context) => const AddPage(),
+        MyRoutes.successPage: (context) => const SuccessPageScreen(),
 
       },
     );

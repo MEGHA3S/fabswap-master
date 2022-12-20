@@ -1,3 +1,4 @@
+import 'package:fabswap/controllers/image_controller.dart';
 import 'package:flutter/material.dart';
 
 class AddPage extends StatelessWidget {
@@ -26,13 +27,93 @@ class AddPage extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 20),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.popAndPushNamed(context, '/feed');
+                                  Navigator.pushNamed(context, '/feed');
                                 },
                                 child: const Icon(Icons.arrow_back_ios)),
                           ),
-
+                          const Padding(
+                            padding: EdgeInsets.only(left: 30),
+                            child: Text(
+                              "Listing Details",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 100),
+                            child: InkWell(
+                              child: Text(
+                                "NEXT",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )
                         ],
                       ),
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Photo of Product",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: SizedBox(
+                              height: 100,
+                              width: 200,
+                              child: InkWell(
+                                onTap: (){
+                                  //uploadImage();
+
+                                },
+                                child: Container(
+                                    height: 80,width: 80,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.black12,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(Icons.camera),
+                                          //Image(image: AssetImage(uploadImg))
+                                      ],
+                                    )),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30),
+                          child: Column(
+                            children: [
+                              box('Category'),
+                              box('Dress Name'),
+                              box('Size'),
+                              box('Selling Price'),
+                            ],
+                          ),
+                        )
+                      ],
                     )
                   ],
                 )
@@ -41,4 +122,24 @@ class AddPage extends StatelessWidget {
           ),
         ));
   }
+}
+
+Widget box(String label) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 20),
+    child: TextField(
+      style: const TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(width: 0.02, color: Colors.grey),
+            // filled: true,
+            // fillColor: Colors.white,
+          ),
+          labelText: label,
+          labelStyle: const TextStyle(
+            //for changing label text color
+              color: Colors.black,
+              fontSize: 20)),
+    ),
+  );
 }
