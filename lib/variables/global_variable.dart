@@ -7,10 +7,12 @@ import 'package:flutter/cupertino.dart';
 
 import '../pages/cart.dart';
 
-String urlBase = 'https://10.0.2.2:8000/';
+//String urlBase = 'https://10.0.2.2:8000/';
+String urlBase = 'https://crictelegraph.com/Fabswap_Backend-master/public/';
 String urlConnector = '/';
 String urlApi = 'api';
 String urlRootUser = 'UserController';
+String urlFeedUser = 'FeedController';
 String categorySelected='A';
 String myId="0";
 int totalAmount=0;
