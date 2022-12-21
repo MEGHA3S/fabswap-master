@@ -1,4 +1,3 @@
-import 'package:fabswap/controllers/image_controller.dart';
 import 'package:flutter/material.dart';
 
 class AddPage extends StatelessWidget {
@@ -59,6 +58,10 @@ class AddPage extends StatelessWidget {
                     const Divider(
                       color: Colors.grey,
                     ),
+
+
+
+
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Column(
@@ -106,10 +109,10 @@ class AddPage extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 30),
                           child: Column(
                             children: [
-                              box('Category'),
+                            /*  box('Category'),
                               box('Dress Name'),
                               box('Size'),
-                              box('Selling Price'),
+                              box('Selling Price'),*/
                             ],
                           ),
                         )
@@ -124,10 +127,11 @@ class AddPage extends StatelessWidget {
   }
 }
 
-Widget box(String label) {
+Widget box(String label,TextEditingController? controllerText) {
   return Padding(
     padding: const EdgeInsets.only(top: 20),
     child: TextField(
+      controller: controllerText,
       style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(

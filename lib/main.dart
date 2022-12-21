@@ -19,7 +19,7 @@ import 'networking/web.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   functionFetchUser();
-  runApp(const MyApp2());
+  runApp(const MyApp());
 }
 
 
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.buypage: (context) => const BuyPage(),
         MyRoutes.profilepage: (context) => const ProfilePage(),
         MyRoutes.searchpage: (context) => const Search(),
-        MyRoutes.addpage: (context) => const AddPage(),
+        MyRoutes.addpage: (context) => const AddProductScreen(),
         MyRoutes.successPage: (context) => const SuccessPageScreen(),
 
       },

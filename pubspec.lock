@@ -497,13 +497,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  utility:
-    dependency: "direct main"
-    description:
-      name: utility
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   uuid:
     dependency: transitive
     description:

@@ -81,7 +81,8 @@ class _SearchState extends State<Search> {
               for (int z = 0; z < feedModel.response!.length; z++)
                 if(feedModel.response![z].username!.contains(_controllerSearch.text))
                   feedData(
-                    indexProfile: z.toString(),
+                    loopValue: z.toString(),
+                    indexProfile: feedModel.response![z].userId.toString(),
                     username:feedModel.response![z].username.toString(),
                     dressName:feedModel.response![z].dressName.toString(),
                     dressSize:feedModel.response![z].dressSize.toString(),

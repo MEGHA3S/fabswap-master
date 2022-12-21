@@ -147,7 +147,8 @@ class FeedPageState extends State<FeedPage> {
                       for (int z = 0; z < feedModel.response!.length; z++)
                         if(categorySelected == feedModel.response![z].category || categorySelected == "A")
                           feedData(
-                            indexProfile: z.toString(),
+                            loopValue: z.toString(),
+                            indexProfile: feedModel.response![z].userId.toString(),
                             username:feedModel.response![z].username.toString(),
                             dressName:feedModel.response![z].dressName.toString(),
                             dressSize:feedModel.response![z].dressSize.toString(),
@@ -163,7 +164,8 @@ class FeedPageState extends State<FeedPage> {
                           for (int z = 0; z < feedModel.response!.length; z++)
                             if(feedModel.response![z].username!.contains(_controllerSearch.text))
                               feedData(
-                                indexProfile: z.toString(),
+                                loopValue: z.toString(),
+                                indexProfile: feedModel.response![z].userId.toString(),
                                 username:feedModel.response![z].username.toString(),
                                 dressName:feedModel.response![z].dressName.toString(),
                                 dressSize:feedModel.response![z].dressSize.toString(),
@@ -209,8 +211,8 @@ Widget lowerLike(String text, IconData icon) {
 
 class feedData extends StatefulWidget {
  final String username,  dressName,  dressSize,
-       dressPrice, likes,  comments,image,time,indexProfile;
-  const feedData({Key? key, required this.username, required this.dressName, required this.dressSize, required this.dressPrice, required this.likes, required this.comments, required this.image, required this.time, required this.indexProfile}) : super(key: key);
+       dressPrice, likes,  comments,image,time,indexProfile,loopValue;
+  const feedData({Key? key, required this.username, required this.dressName, required this.dressSize, required this.dressPrice, required this.likes, required this.comments, required this.image, required this.time, required this.indexProfile, required this.loopValue}) : super(key: key);
 
   @override
   State<feedData> createState() => _feedDataState();
@@ -302,7 +304,7 @@ class _feedDataState extends State<feedData> {
                 ),
                 child: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/feedlist',arguments: {'indexProfile': widget.indexProfile});
+                      Navigator.pushNamed(context, '/feedlist',arguments: {'indexProfile': widget.loopValue});
                     },
                     child:  Image(
                       image: NetworkImage(widget.image),

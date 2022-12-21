@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:cloudinary/cloudinary.dart';
+import 'package:fabswap/controllers/feed_controller.dart';
 import 'package:fabswap/controllers/utitlity.dart';
+import 'package:fabswap/routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../pages/add.dart';
+
 
 const String apiKey =
 String.fromEnvironment('CLOUDINARY_API_KEY', defaultValue: '914928133496541');
@@ -22,21 +25,12 @@ final cloudinary = Cloudinary.unsignedConfig(
   cloudName: cloudName,
 );
 
-class MyApp2 extends StatelessWidget {
-  const MyApp2({Key? key}) : super(key: key);
+class AddProductScreen extends StatelessWidget {
+  const AddProductScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Cloudinary Demo',
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
-      darkTheme: ThemeData.dark(),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Cloudinary Home Page'),
-    );
+    return const MyHomePage(title: '',);
   }
 }
 
@@ -76,6 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
   bool loading = false;
   String? errorMessage;
   FileSource fileSource = FileSource.path;
+  final TextEditingController _controllerCategory = TextEditingController();
+  final TextEditingController _controllerName = TextEditingController();
+  final TextEditingController _controllerSize = TextEditingController();
+  final TextEditingController _controllerPrice = TextEditingController();
+
 
   void onUploadSourceChanged(FileSource? value) =>
       setState(() => fileSource = value!);
@@ -148,129 +147,206 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Scrollbar(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const SizedBox(height: 16),
-              const Text(
-                'Photos from file',
-              ),
-              const SizedBox(height: 8.0),
-              dataImages.path != null
-                  ? imageFromPathView()
-                  : ElevatedButton(
-                onPressed: () => onClick(loadImage),
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.all(8.0),
-                  ),
-                ),
-                child: const Text(
-                  'Choose Image',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const Divider(height: 32.0),
-              if (cloudinaryResponses.secureUrl != null)
-                const Text(
-                  'Cloudinary URL',
-                ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              if (cloudinaryResponses.secureUrl != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).bottomAppBarColor,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    padding: const EdgeInsets.all(16.0),
-                    child: RichText(
-                      text: TextSpan(
-                        text: cloudinaryResponses.secureUrl ?? '',
+      body: SafeArea(
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+
+
+
+                Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 60,
+                      decoration: const BoxDecoration(color: Colors.white60),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: InkWell(
+                                onTap: () {
+                                  Navigator.popAndPushNamed(context,MyRoutes.feedpage);
+                                },
+                                child: const Icon(Icons.arrow_back_ios)),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 30),
+                            child: Text(
+                              "Listing Details",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                           Padding(
+                            padding: const EdgeInsets.only(left: 100),
+                            child: InkWell(
+                              onTap: (){
+                                uploadNewProductToFeed(context,cloudinaryResponses.secureUrl.toString() ,_controllerName.text, _controllerSize.text, _controllerPrice.text,_controllerCategory.text);
+                              },
+                              child: const Text(
+                                "NEXT",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                ),
-              const SizedBox(height: 16.0),
-              Visibility(
-                visible: errorMessage?.isNotEmpty ?? false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "$errorMessage",
-                      textAlign: TextAlign.center,
-                      style:
-                      TextStyle(fontSize: 18, color: Colors.red.shade900),
+                    const Divider(
+                      color: Colors.grey,
                     ),
-                    const SizedBox(
-                      height: 128,
+
+
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              "Photo of Product",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          dataImages.path != null
+                              ? imageFromPathView()
+                              : InkWell(
+                            onTap: () => onClick(loadImage),
+
+                            child: Container(
+                                height: 80,
+                                width: 160,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.black12,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(Icons.camera),
+                                    //Image(image: AssetImage(uploadImg))
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
                     ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30),
+                          child: Column(
+                            children: [
+                              box('Category',_controllerCategory),
+                              box('Dress Name',_controllerName),
+                              box('Size',_controllerSize),
+                              box('Selling Price',_controllerPrice),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
-              ),
-              uploadSourceView,
-              const SizedBox(
-                height: 16,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: loading ? null : () => onClick(doSignedUpload),
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.all(16.0),
+
+               /* if (cloudinaryResponses.secureUrl != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).bottomAppBarColor,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.all(16.0),
+                      child: RichText(
+                        text: TextSpan(
+                          text: cloudinaryResponses.secureUrl ?? '',
+                        ),
                       ),
                     ),
-                    child: const Text(
-                      'Signed upload',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                  ),*/
+             /*   Visibility(
+                  visible: errorMessage?.isNotEmpty ?? false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "$errorMessage",
+                        textAlign: TextAlign.center,
+                        style:
+                        TextStyle(fontSize: 18, color: Colors.red.shade900),
+                      ),
+                      const SizedBox(
+                        height: 128,
+                      ),
+                    ],
+                  ),
+                ),*/
+                //uploadSourceView,
+                const SizedBox(
+                  height: 16,
+                ),
+              /*  Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: loading ? null : () => onClick(doSignedUpload),
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                          const EdgeInsets.all(16.0),
+                        ),
+                      ),
+                      child: const Text(
+                        'Signed upload',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),*/
+                /*const SizedBox(height: 16.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: loading ? null : () => onClick(doUnsignedUpload),
+                      style: ButtonStyle(
+                        padding:
+                        MaterialStateProperty.all(const EdgeInsets.all(16.0)),
+                      ),
+                      child: const Text(
+                        'Unsigned upload',
+                        textAlign: TextAlign.center,
+                        style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: loading ? null : () => onClick(doUnsignedUpload),
-                    style: ButtonStyle(
-                      padding:
-                      MaterialStateProperty.all(const EdgeInsets.all(16.0)),
-                    ),
-                    child: const Text(
-                      'Unsigned upload',
-                      textAlign: TextAlign.center,
-                      style:
-                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40.0),
-            ],
+                const SizedBox(height: 40.0),*/
+              ],
+            ),
           ),
         ),
       ),
@@ -349,10 +425,14 @@ class _MyHomePageState extends State<MyHomePage> {
             onImageFromCamera: () async {
               onNewImages(await handleImagePickerResponse(
                   Utility.takePhoto(cameraDevice: CameraDevice.rear)));
+              onClick(doUnsignedUpload);
+
             },
             onImageFromGallery: () async {
               onNewImages(await handleImagePickerResponse(
                   Utility.pickImageFromGallery()));
+              onClick(doUnsignedUpload);
+
             },
           );
           break;

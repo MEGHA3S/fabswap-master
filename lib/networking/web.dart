@@ -1,5 +1,6 @@
 //web connectivity files
 import 'dart:convert';
+import 'package:fabswap/controllers/feed_controller.dart';
 import 'package:fabswap/controllers/local_data_controller.dart';
 import 'package:fabswap/models/feed_model.dart';
 import 'package:fabswap/models/user_model.dart';
@@ -55,6 +56,18 @@ Future<void> functionFetchFeed() async {
   http.Response response = await http.get(Uri.parse('http://10.0.2.2:8000/api/FeedController'));
   feedModel= FeedModel.fromJson(jsonDecode(response.body));
 
+  print(feedModel.response![0].dressName);
+}
+
+
+
+Future<void> functionStoreFeed(String userName,String img,String dressName,String dressSize,String dressPrice,String category,String userId,context) async {
+  print('inside function');
+  http.Response response = await http.post(Uri.parse('http://10.0.2.2:8000/api/FeedController'),body: {'username':userName,'image':img,'dress_name':dressName,'dress_size':dressSize,'dress_price':dressPrice,'category':category,'userId':userId});
+  feedModel= FeedModel.fromJson(jsonDecode(response.body));
+  if(response.body.length>10){
+    uploadedSuccessfully(context);
+  }
   print(feedModel.response![0].dressName);
 }
 

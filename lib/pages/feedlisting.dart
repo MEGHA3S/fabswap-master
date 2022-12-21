@@ -176,7 +176,7 @@ Widget lowerData(context, String indexProfile) {
                 image: NetworkImage(userModel
                     .response![int.parse(feedModel
                         .response![int.parse(indexProfile)].userId
-                        .toString())]
+                        .toString())-1]
                     .profileImg
                     .toString()),
                 width: 50,
